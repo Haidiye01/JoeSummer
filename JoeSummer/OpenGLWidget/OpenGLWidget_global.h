@@ -1,0 +1,12 @@
+#ifndef OPENGLWIDGET_GLOBAL_H
+#define OPENGLWIDGET_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(OPENGLWIDGET_LIBRARY)
+#  define OPENGLWIDGET_EXPORT Q_DECL_EXPORT
+#else
+#  define OPENGLWIDGET_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // OPENGLWIDGET_GLOBAL_H

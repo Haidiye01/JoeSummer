@@ -13,6 +13,8 @@ bin-int/
 **.vcxproj.user
 
 # Directories
+build-JoeSummer-Desktop_Qt_5_15_2_MinGW_64_bit-Debug/
+build-JoeSummer-Desktop_Qt_5_15_2_MinGW_64_bit-Release/
 Hazel/vendor/VulkanSDK
 Hazelnut/assets/cache
 scripts/__pycache__
