@@ -1,7 +1,6 @@
-#ifndef STABLE_H
-#define STABLE_H
+#ifndef COMMON_H
+#define COMMON_H
 #include <QDebug>
-
 #include <QWidget>
 #include <QTranslator>
 #include <QMessageBox>
@@ -9,7 +8,12 @@
 #include <QCoreApplication>
 #include <QMap>
 #include <memory>
-//   以前的，不用 的  慢慢删掉
+#include <QOpenGLWindow>
+#include <QOpenGLFunctions>
+#include <QOpenGLFunctions_3_3_Core>
+#include <QSurfaceFormat>
+#include <QTimer>
+//   浠ュ墠鐨勶紝涓嶇敤 鐨 鎱㈡參鍒犳帀
 //#include <QRect>
 //#include <QGraphicsDropShadowEffect>
 
@@ -18,4 +22,4 @@
 //#include <QPluginLoader>
 //#include <QMouseEvent>
 
-#endif // STABLE_H
+#endif // COMMON_H
