@@ -1,10 +1,18 @@
-QT +=xml  network opengl widgets
-
+QT +=xml  network opengl widgets core gui
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TEMPLATE = lib
 DEFINES += OPENGLWIDGET_LIBRARY
+DEFINES += QT_DEPRECATED_WARNINGS \
+      APP_VERSION=\\\"v$${VERSION}\\\"
 DESTDIR = ../bin
 CONFIG += c++11 precompile_header
-PRECOMPILED_HEADER
+PRECOMPILED_HEADER=Common.h
+
+INCLUDEPATH += \
+    include/Core \
+    include/OpenGL \
+    include/UI \
+    3rdparty
 win32 {
     LIBS += -lopengl32
     #LIBS += -L../bin -lassimp-vc140-mt#这句话可以

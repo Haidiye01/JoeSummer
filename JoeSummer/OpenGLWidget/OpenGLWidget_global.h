@@ -3,10 +3,32 @@
 
 #include <QtCore/qglobal.h>
 
-#if defined(OPENGLWIDGET_LIBRARY)
+#if defined(OpenGLWidget_LIBRARY)
 #  define OPENGLWIDGET_EXPORT Q_DECL_EXPORT
+#  define OpenGLWindowSHARED_EXPORT Q_DECL_EXPORT
+#  define OpenGLUniformBufferObjectSHARED_EXPORT Q_DECL_EXPORT
+#  define OpenGLTextureSHARED_EXPORT Q_DECL_EXPORT
+#  define OpenGLSceneSHARED_EXPORT Q_DECL_EXPORT
+#  define OpenGLRendererSHARED_EXPORT Q_DECL_EXPORT
+#  define OpenGLMeshSHARED_EXPORT Q_DECL_EXPORT
+#  define OpenGLMaterialSHARED_EXPORT Q_DECL_EXPORT
+#  define FPSCounterSHARED_EXPORT Q_DECL_EXPORT
+#  define AbstractEntitySHARED_EXPORT Q_DECL_EXPORT
+#  define AbstractGizmoSHARED_EXPORT Q_DECL_EXPORT
+#  define AbstractLightSHARED_EXPORT Q_DECL_EXPORT
+
 #else
 #  define OPENGLWIDGET_EXPORT Q_DECL_IMPORT
+#  define OpenGLWindowSHARED_EXPORT Q_DECL_IMPORT
+#  define OpenGLUniformBufferObjectSHARED_EXPORT Q_DECL_IMPORT
+#  define OpenGLTextureSHARED_EXPORT Q_DECL_IMPORT
+#  define OpenGLSceneSHARED_EXPORT Q_DECL_IMPORT
+#  define OpenGLRendererSHARED_EXPORT Q_DECL_IMPORT
+#  define OpenGLMeshSHARED_EXPORT Q_DECL_IMPORT
+#  define OpenGLMaterialSHARED_EXPORT Q_DECL_IMPORT
+#  define FPSCounterSHARED_EXPORT Q_DECL_IMPORT
+#  define AbstractEntitySHARED_EXPORT Q_DECL_IMPORT
+#  define AbstractGizmoSHARED_EXPORT Q_DECL_IMPORT
+#  define AbstractLightSHARED_EXPORT Q_DECL_IMPORT
 #endif
-
 #endif // OPENGLWIDGET_GLOBAL_H
