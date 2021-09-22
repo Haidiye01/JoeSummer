@@ -5,9 +5,9 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 CONFIG += c++11
 DESTDIR = ../bin
 INCLUDEPATH += \
-    ../OpenGLWidget/include/Core \
-    ../OpenGLWidget/include/OpenGL \
-    ../OpenGLWidget/include/UI \
+    ../OpenGLWidget/src/Core \
+    ../OpenGLWidget/src/OpenGL \
+    ../OpenGLWidget/src/UI \
     ../OpenGLWidget/3rdparty
 win32 {
     LIBS += -lopengl32

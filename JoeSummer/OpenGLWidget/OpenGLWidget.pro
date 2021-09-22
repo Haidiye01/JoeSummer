@@ -6,12 +6,12 @@ DEFINES += QT_DEPRECATED_WARNINGS \
       APP_VERSION=\\\"v$${VERSION}\\\"
 DESTDIR = ../bin
 CONFIG += c++11 precompile_header
-PRECOMPILED_HEADER=Common.h
+PRECOMPILED_HEADER=src/Core/Common.h
 
 INCLUDEPATH += \
-    include/Core \
-    include/OpenGL \
-    include/UI \
+    src/Core \
+    src/OpenGL \
+    src/UI \
     3rdparty
 win32 {
     LIBS += -lopengl32
@@ -23,13 +23,13 @@ win32 {
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    OpenGLWindow.cpp \
-    OpenglWidget.cpp
+   src/OpenGL/OpenGLWindow.cpp
+
 
 HEADERS += \
     OpenGLWidget_global.h \
-    OpenGLWindow.h \
-    OpenglWidget.h
+    src/OpenGL/OpenGLWindow.h \
+    src/Core/Common.h
 RESOURCES += resources.qrc
 # Default rules for deployment.
 unix {
