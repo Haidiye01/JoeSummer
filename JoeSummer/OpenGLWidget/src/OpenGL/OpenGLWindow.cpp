@@ -54,6 +54,7 @@ QString OpenGLWindow::shadingLanguageVersion() {
 #pragma endregion}
 void OpenGLWindow::initializeGL()
 {
+#if TestJoe==1
     //着色器部分
     core = QOpenGLContext::currentContext()->versionFunctions<QOpenGLFunctions_3_3_Core>();//获取上下文
     int vertexShader = core->glCreateShader(GL_VERTEX_SHADER);
@@ -112,7 +113,9 @@ void OpenGLWindow::initializeGL()
 
     core->glBindBuffer(GL_ARRAY_BUFFER, 0);
     core->glBindVertexArray(0);
+#else
 
+#endif
 }
 
 void OpenGLWindow::resizeGL(int w, int h)
@@ -124,6 +127,7 @@ void OpenGLWindow::paintGL()
 {
     //glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
     //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+#if TestJoe==1
     core->glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
     core->glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
 
@@ -131,6 +135,8 @@ void OpenGLWindow::paintGL()
     core->glBindVertexArray(VAO);
     core->glDrawArrays(GL_TRIANGLES, 0, 3);
     core->glUseProgram(0);
+#else
+#endif
 }
 #pragma region "高级" {
 //void OpenGLWindow::setScene(OpenGLScene* openGLScene) {
