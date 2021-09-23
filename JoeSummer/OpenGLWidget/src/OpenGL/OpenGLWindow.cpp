@@ -103,19 +103,18 @@ void OpenGLWindow::initializeGL()
 
 void OpenGLWindow::resizeGL(int w, int h)
 {
-    core->glViewport(0, 0, w, h);
+    //core->glViewport(0, 0, w, h);
 }
 
 void OpenGLWindow::paintGL()
 {
     //glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
     //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    core->glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-    core->glClear(GL_COLOR_BUFFER_BIT);
+    core->glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
+    core->glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
 
     core->glUseProgram(shaderProgram);
     core->glBindVertexArray(VAO);
     core->glDrawArrays(GL_TRIANGLES, 0, 3);
     core->glUseProgram(0);
-
 }
