@@ -4,6 +4,8 @@
     <file>resources/shaders/ubo.glsl</file>
     <file>resources/shaders/basic.vert</file>
     <file>resources/shaders/basic.frag</file>
+	<file>resources/shaders/Test.vert</file>
+    <file>resources/shaders/Test.frag</file>
     <file>resources/shaders/phong.vert</file>
     <file>resources/shaders/phong.frag</file>
     <file>resources/shaders/picking.vert</file>

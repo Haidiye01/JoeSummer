@@ -1,7 +1,7 @@
 #include "OpenGLWindow.h"
 
 int log_level =  LOG_LEVEL_INFO;//修改  从main函数移动中这里
-
+#define TestJoe 1
 GLuint VBO, VAO;
 const char *vertexShaderSource =
         "#version 330 core\n"

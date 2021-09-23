@@ -24,6 +24,7 @@ win32 {
 SOURCES += \
    src/OpenGL/OpenGLRenderer.cpp \
    src/OpenGL/OpenGLScene.cpp \
+   src/OpenGL/OpenGLUniformBufferObject.cpp \
    src/OpenGL/OpenGLWindow.cpp
 
 
@@ -31,6 +32,7 @@ HEADERS += \
     OpenGLWidget_global.h \
     src/OpenGL/OpenGLRenderer.h \
     src/OpenGL/OpenGLScene.h \
+    src/OpenGL/OpenGLUniformBufferObject.h \
     src/OpenGL/OpenGLWindow.h \
     src/Core/Common.h
 RESOURCES += resources.qrc

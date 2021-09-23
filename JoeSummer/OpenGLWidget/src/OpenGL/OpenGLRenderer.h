@@ -1,7 +1,7 @@
 #ifndef OPENGLRENDERER_H
 #define OPENGLRENDERER_H
-#include "Common.h"
-#include <QObject>
+
+
 #include "OpenGLScene.h"
 
 class OpenGLRenderer : public QObject
@@ -23,6 +23,7 @@ signals:
 private:
     QString m_log;
     QOpenGLShaderProgram *m_basicShader, *m_pickingShader, *m_phongShader;
+    QOpenGLShaderProgram *m_JoeShader;
     QOpenGLFramebufferObject *m_pickingPassFBO;
 
     QOpenGLShaderProgram * loadShaderFromFile(

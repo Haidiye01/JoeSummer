@@ -4,6 +4,7 @@
 OpenGLRenderer::OpenGLRenderer(QObject* parent): QObject(0) {
     m_log = "";
     m_pickingShader = m_basicShader = m_phongShader = 0;
+    m_JoeShader=0;//
     m_pickingPassFBO = 0;
     setParent(parent);
 }
@@ -37,11 +38,14 @@ bool OpenGLRenderer::reloadShaders() {
         delete m_phongShader;
         m_phongShader = 0;
     }
-
+    if (m_JoeShader) {
+        delete m_JoeShader;
+        m_JoeShader = 0;
+    }
     m_pickingShader = loadShaderFromFile(":/resources/shaders/picking.vert", ":/resources/shaders/picking.frag");
     m_basicShader = loadShaderFromFile(":/resources/shaders/basic.vert", ":/resources/shaders/basic.frag");
     m_phongShader = loadShaderFromFile(":/resources/shaders/phong.vert", ":/resources/shaders/phong.frag");
-
+    m_JoeShader= loadShaderFromFile(":/resources/shaders/Test.vert", ":/resources/shaders/Test.frag");
     if (m_phongShader) {
         m_phongShader->bind();
         m_phongShader->setUniformValue("diffuseMap", 0);
@@ -49,7 +53,8 @@ bool OpenGLRenderer::reloadShaders() {
         m_phongShader->setUniformValue("bumpMap", 2);
     }
 
-    return m_pickingShader && m_basicShader && m_phongShader;
+    //return m_pickingShader && m_basicShader && m_phongShader;
+    return m_pickingShader && m_basicShader && m_phongShader&&m_JoeShader;
 }
 
 void OpenGLRenderer::reloadFrameBuffers() {
@@ -194,6 +199,6 @@ QOpenGLShaderProgram * OpenGLRenderer::loadShaderFromFile(
             dout << "Failed to link shaders:" + shader->log();
         return 0;
     }
-    //OpenGLUniformBufferObject::bindUniformBlock(shader);
+    OpenGLUniformBufferObject::bindUniformBlock(shader);
     return shader;
 }

@@ -2,7 +2,7 @@
 #define OPENGLSCENE_H
 
 #include <QObject>
-
+#include <OpenGLUniformBufferObject.h>
 class OpenGLScene : public QObject
 {
     Q_OBJECT

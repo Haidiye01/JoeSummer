@@ -21,7 +21,7 @@
 #include <QOpenGLFramebufferObject>
 #include <QFile>
 #include <QFileInfo>
-
+#include <QObject>
 #include <iostream>
 //#include <QPluginLoader>
 //#include <QRect>
