@@ -22,11 +22,15 @@ win32 {
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+   src/OpenGL/OpenGLRenderer.cpp \
+   src/OpenGL/OpenGLScene.cpp \
    src/OpenGL/OpenGLWindow.cpp
 
 
 HEADERS += \
     OpenGLWidget_global.h \
+    src/OpenGL/OpenGLRenderer.h \
+    src/OpenGL/OpenGLScene.h \
     src/OpenGL/OpenGLWindow.h \
     src/Core/Common.h
 RESOURCES += resources.qrc

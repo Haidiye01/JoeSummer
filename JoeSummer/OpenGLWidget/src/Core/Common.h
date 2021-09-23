@@ -13,18 +13,22 @@
 #include <QOpenGLFunctions_3_3_Core>
 #include <QSurfaceFormat>
 #include <QTimer>
+#include <QTime>
+#include <QKeyEvent>
+#include <QMouseEvent>
+#include <QWheelEvent>
+#include <QOpenGLShaderProgram>
+#include <QOpenGLFramebufferObject>
+#include <QFile>
+#include <QFileInfo>
+
+#include <iostream>
+//#include <QPluginLoader>
+//#include <QRect>
+//#include <QGraphicsDropShadowEffect>
 #include <QMainWindow>//主工程用
 #include <QHBoxLayout>//主工程用
 #include <QSplitter>//主工程用
-//   浠ュ墠鐨勶紝涓嶇敤 鐨 鎱㈡參鍒犳帀
-//#include <QRect>
-//#include <QGraphicsDropShadowEffect>
-
-
-//#include <iostream>
-//#include <QPluginLoader>
-//#include <QMouseEvent>
-
 #define FILENAME (QFileInfo(__FILE__).fileName().toStdString().c_str())
 #define FUNCNAME __FUNCTION__
 #define LINENO __LINE__
