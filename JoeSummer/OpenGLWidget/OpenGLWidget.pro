@@ -15,7 +15,6 @@ INCLUDEPATH += \
     3rdparty
 win32 {
     LIBS += -lopengl32
-    #LIBS += -L../bin -lassimp-vc140-mt#这句话可以
     LIBS += -L../bin -llibassimp#-lassimp-vc140-mt#dll引用 #-L../bin -llibassimp#-lassimp-vc140-mt
 }
 # You can make your code fail to compile if it uses deprecated APIs.
@@ -37,5 +36,4 @@ unix {
 }
 !isEmpty(target.path): INSTALLS += target
 
-PRECOMPILED_HEADER += \
-    Common.h
+
