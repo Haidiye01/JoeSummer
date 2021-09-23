@@ -15,6 +15,8 @@
 #include <QTimer>
 #include <QTime>
 #include <QKeyEvent>
+#include <QChildEvent>
+
 #include <QMouseEvent>
 #include <QWheelEvent>
 #include <QOpenGLShaderProgram>
