@@ -22,7 +22,19 @@ OpenGLWindow::~OpenGLWindow()
 {
 
 }
+#pragma region "获取信息" {
+QString OpenGLWindow::rendererName() {
+    return isInitialized() ? QString((char*) glGetString(GL_RENDERER)) : "";
+}
 
+QString OpenGLWindow::openGLVersion() {
+    return isInitialized() ? QString((char*) glGetString(GL_VERSION)) : "";
+}
+
+QString OpenGLWindow::shadingLanguageVersion() {
+    return isInitialized() ? QString((char*) glGetString(GL_SHADING_LANGUAGE_VERSION)) : "";
+}
+#pragma endregion}
 void OpenGLWindow::initializeGL()
 {
     //着色器部分
