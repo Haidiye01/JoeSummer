@@ -14,6 +14,10 @@ public:
     QString rendererName();
     QString openGLVersion();
     QString shadingLanguageVersion();
+    //    void setScene(OpenGLScene* openGLScene);
+    void setRenderer(OpenGLRenderer* renderer);
+    void setEnableMousePicking(bool enabled);
+    //    void setCustomRenderingLoop(void (*customRenderingLoop)(Scene*));
 protected:
     void initializeGL() override;
     void resizeGL(int w, int h) override;
@@ -32,10 +36,7 @@ private:
     GLuint shaderProgram;
     QOpenGLFunctions_3_3_Core *core;
 
-//    void setScene(OpenGLScene* openGLScene);
-//    void setRenderer(OpenGLRenderer* renderer);
-    void setEnableMousePicking(bool enabled);
-//    void setCustomRenderingLoop(void (*customRenderingLoop)(Scene*));
+
 
 
 Q_SIGNALS:
@@ -45,16 +46,16 @@ private:
     QHash<int, bool> m_keyPressed;
     QPoint m_lastCursorPos;
     QTime m_lastMousePressTime;
-   bool m_enableMousePicking;
+    bool m_enableMousePicking;
     OpenGLScene* m_openGLScene;
     OpenGLRenderer * m_renderer;
-//    FPSCounter* m_fpsCounter;
-//    void (*m_customRenderingLoop)(Scene*);
+    //    FPSCounter* m_fpsCounter;
+    //    void (*m_customRenderingLoop)(Scene*);
 
     void processUserInput();
     void configSignals();
 
-//private slots:
-//    void sceneDestroyed(QObject* host);
+    //private slots:
+    //    void sceneDestroyed(QObject* host);
 };
 #endif // OPENGLWINDOW_H

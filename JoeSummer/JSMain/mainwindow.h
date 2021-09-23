@@ -17,9 +17,9 @@ private:
     void configLayout();
 private:
     Ui::MainWindow *ui;
-    OpenGLWindow* m_openGLWindow;
     QSplitter * m_splitter;
     QLabel* m_fpsLabel;
 
+    OpenGLWindow* m_openGLWindow;
 };
 #endif // MAINWINDOW_H

@@ -192,18 +192,22 @@ void OpenGLWindow::paintGL()
 //        connect(m_openGLScene, SIGNAL(destroyed(QObject*)), this, SLOT(sceneDestroyed(QObject*)));
 //}
 
-//void OpenGLWindow::setRenderer(OpenGLRenderer * renderer) {
-//    m_renderer = renderer;
-//    if (isInitialized() && m_renderer) {
-//        m_renderer->reloadShaders();
-//        if (m_renderer->hasErrorLog()) {
-//            QString log = m_renderer->errorLog();
-//            QMessageBox::critical(0, "Failed to load shaders", log);
-//            if (log_level >= LOG_LEVEL_ERROR)
-//                dout << log;
-//        }
-//    }
-//}
+void OpenGLWindow::setRenderer(OpenGLRenderer * renderer) {
+    m_renderer = renderer;
+    if (isInitialized() && m_renderer) {
+        m_renderer->reloadShaders();
+        if (m_renderer->hasErrorLog()) {
+            QString log = m_renderer->errorLog();
+            QMessageBox::critical(0, "Failed to load shaders", log);
+            if (log_level >= LOG_LEVEL_ERROR)
+                dout << log;
+        }
+        else
+        {
+            qDebug()<<"setRenderer  没错误";
+        }
+    }
+}
 
 void OpenGLWindow::setEnableMousePicking(bool enabled) {
     m_enableMousePicking = enabled;
