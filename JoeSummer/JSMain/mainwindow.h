@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include <OpenGLWindow.h>
+#include <OpenGLScene.h>
 #include <Common.h>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

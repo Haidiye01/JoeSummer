@@ -1,11 +1,11 @@
-layout (location = 0) in vec3 position;
+#version 330 core
+in vec3 VertexPosition;
+in vec3 VertexColor;
 
-void main() {
-    gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
-    //mat4 MVP = projMat * viewMat * modelMat;
-    //gl_Position = MVP * vec4(position, 1.0f);
-    //if (sizeFixed == 1) {
-      //  float w = (MVP * vec4(0.0f, 0.0f, 0.0f, 1.0f)).w / 100;
-     //   gl_Position = MVP * vec4(position * w, 1.0f);
-    //}
+out vec3 Color;
+
+void main()
+{
+    Color = VertexColor;
+    gl_Position = vec4( VertexPosition, 1.0 );
 }

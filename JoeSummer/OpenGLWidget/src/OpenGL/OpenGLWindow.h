@@ -8,7 +8,7 @@ class OpenGLWindow : public QOpenGLWindow,  protected QOpenGLFunctions_3_3_Core
 {
     Q_OBJECT
 public:
-    OpenGLWindow();
+    //OpenGLWindow();
     ~OpenGLWindow();
     OpenGLWindow(OpenGLScene* openGLScene, OpenGLRenderer* renderer);
     QString rendererName();
@@ -16,6 +16,7 @@ public:
     QString shadingLanguageVersion();
     //    void setScene(OpenGLScene* openGLScene);
     void setRenderer(OpenGLRenderer* renderer);
+    void setRendererSimple(OpenGLRenderer* renderer);
     void setEnableMousePicking(bool enabled);
     //    void setCustomRenderingLoop(void (*customRenderingLoop)(Scene*));
 protected:

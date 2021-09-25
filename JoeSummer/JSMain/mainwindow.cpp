@@ -6,8 +6,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    m_openGLWindow=new OpenGLWindow;
-    m_openGLWindow->setRenderer(new OpenGLRenderer);
+    m_openGLWindow=new OpenGLWindow(new OpenGLScene,new OpenGLRenderer);
+    //m_openGLWindow->setRenderer(new OpenGLRenderer);
     configLayout();
 }
 

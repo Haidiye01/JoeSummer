@@ -16,7 +16,8 @@ public:
 
     bool reloadShaders();
     void reloadFrameBuffers();
-
+    bool reloadShadersSimple();
+    void reloadFrameBuffersSimple();
     //uint32_t pickingPass(OpenGLScene* openGLScene, QPoint cursorPos);
     //void render(OpenGLScene* openGLScene);
 signals:
@@ -27,9 +28,13 @@ private:
     QOpenGLFramebufferObject *m_pickingPassFBO;
 
     QOpenGLShaderProgram * loadShaderFromFile(
-        QString vertexShaderFilePath,
-        QString fragmentShaderFilePath,
-        QString geometryShaderFilePath = "");
+            QString vertexShaderFilePath,
+            QString fragmentShaderFilePath,
+            QString geometryShaderFilePath = "");
+
+    QOpenGLShaderProgram * loadShaderFromFileSimple(
+            QString vertexShaderFilePath,
+            QString fragmentShaderFilePath);
 };
 
 #endif // OPENGLRENDERER_H

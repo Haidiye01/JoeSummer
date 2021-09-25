@@ -2,7 +2,7 @@
 
 int log_level =  LOG_LEVEL_INFO;//修改  从main函数移动中这里
 #define TestJoe 1
-#define TestJoeSec
+#define TestJoeSec 0
 GLuint VBO, VAO;
 const char *vertexShaderSource =
         "#version 330 core\n"
@@ -17,16 +17,16 @@ const char *fragmentShaderSource =
         "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
         "}\n\0";
 
-OpenGLWindow::OpenGLWindow()
-{
-    m_lastCursorPos = QCursor::pos();
-    m_enableMousePicking = true;
-    m_renderer = 0;
-    //m_openGLScene = 0;
-    //m_fpsCounter = new FPSCounter(this);
-    // m_customRenderingLoop = 0;
-    configSignals();
-}
+//OpenGLWindow::OpenGLWindow()
+//{
+//    m_lastCursorPos = QCursor::pos();
+//    m_enableMousePicking = true;
+//    m_renderer = 0;
+//    //m_openGLScene = 0;
+//    //m_fpsCounter = new FPSCounter(this);
+//    // m_customRenderingLoop = 0;
+//    configSignals();
+//}
 OpenGLWindow::OpenGLWindow(OpenGLScene * openGLScene, OpenGLRenderer * renderer) {
     m_lastCursorPos = QCursor::pos();
     m_enableMousePicking = true;
@@ -56,8 +56,21 @@ QString OpenGLWindow::shadingLanguageVersion() {
 void OpenGLWindow::initializeGL()
 {
 #if TestJoe==1
+#if TestJoeSec==0
+    //参考代码https://blog.csdn.net/chaojiwudixiaofeixia/article/details/77927876?spm=1001.2014.3001.5501
+    // vertex shader  :/resources/shaders/picking.vert
+    QOpenGLShader *vshader = new QOpenGLShader(QOpenGLShader::Vertex, this);
+    vshader->compileSourceFile(":/resources/shaders/Test.vert");
+
+    // fragment shader
+    QOpenGLShader *fshader = new QOpenGLShader(QOpenGLShader::Fragment, this);
+    fshader->compileSourceFile(":/resources/shaders/Test.frag");
+
     //着色器部分
     core = QOpenGLContext::currentContext()->versionFunctions<QOpenGLFunctions_3_3_Core>();//获取上下文
+    core->glEnable(GL_DEPTH_TEST);
+
+    //顶点着色器
     int vertexShader = core->glCreateShader(GL_VERTEX_SHADER);
     core->glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
     core->glCompileShader(vertexShader);
@@ -70,12 +83,12 @@ void OpenGLWindow::initializeGL()
         core->glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
         qDebug() << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << endl;
     }
-    // fragment shader
+    //片段着色器 fragment shader
     int fragmentShader = core->glCreateShader(GL_FRAGMENT_SHADER);
 
     core->glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
     core->glCompileShader(fragmentShader);
-    // check for shader compile errors
+    // 检查是否有编译错误 check for shader compile errors
     core->glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
     if (!success)
     {
@@ -86,6 +99,7 @@ void OpenGLWindow::initializeGL()
     core->glAttachShader(shaderProgram, vertexShader);
     core->glAttachShader(shaderProgram, fragmentShader);
     core->glLinkProgram(shaderProgram);
+
     // check for linking errors
     core->glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
     if (!success) {
@@ -132,6 +146,24 @@ void OpenGLWindow::initializeGL()
             dout << "No renderer specified";
     }
 #endif
+#else
+    initializeOpenGLFunctions();
+    glEnable(GL_DEPTH_TEST);
+
+    if (m_renderer) {//不传入场景不行啊
+        m_renderer->reloadShaders();//该函数最后一句QOpenGLContext::currentContext()
+        if (m_renderer->hasErrorLog()) {
+            QString log = m_renderer->errorLog();
+            QMessageBox::critical(0, "Failed to load shaders", log);
+            if (log_level >= LOG_LEVEL_ERROR)
+                dout << log;
+        }
+    } else {
+        QMessageBox::critical(0, "Failed to initialize OpenGL", "No renderer specified.");
+        if (log_level >= LOG_LEVEL_ERROR)
+            dout << "No renderer specified";
+    }
+#endif
 }
 
 void OpenGLWindow::resizeGL(int w, int h)
@@ -159,28 +191,29 @@ void OpenGLWindow::paintGL()
 
 #ifdef TestJoeSec
     if (m_renderer) {
-       // m_renderer->render(m_openGLScene);
+        // m_renderer->render(m_openGLScene);
+        m_renderer->reloadShadersSimple();
     }
 #endif
-//    if (m_renderer && m_openGLScene && m_openGLScene->host()->camera()) {
-//        if (m_customRenderingLoop)
-//            m_customRenderingLoop(m_openGLScene->host());
+    //    if (m_renderer && m_openGLScene && m_openGLScene->host()->camera()) {
+    //        if (m_customRenderingLoop)
+    //            m_customRenderingLoop(m_openGLScene->host());
 
-//        m_openGLScene->host()->camera()->setAspectRatio(float(width()) / height());
-//        m_openGLScene->commitCameraInfo();
-//        m_openGLScene->commitLightInfo();
-//        //非鼠标左键单击
-//        if (!m_keyPressed[Qt::LeftButton] && m_enableMousePicking) {
-//            uint32_t pickingID = m_renderer->pickingPass(m_openGLScene, mapFromGlobal(QCursor::pos()) * devicePixelRatioF());
-//            OpenGLMesh* pickedOpenGLMesh = m_openGLScene->pick(pickingID);
-//            if (pickedOpenGLMesh)
-//                pickedOpenGLMesh->host()->setHighlighted(true);
-//            else if (Mesh::getHighlighted())
-//                Mesh::getHighlighted()->setHighlighted(false);
-//        }
+    //        m_openGLScene->host()->camera()->setAspectRatio(float(width()) / height());
+    //        m_openGLScene->commitCameraInfo();
+    //        m_openGLScene->commitLightInfo();
+    //        //非鼠标左键单击
+    //        if (!m_keyPressed[Qt::LeftButton] && m_enableMousePicking) {
+    //            uint32_t pickingID = m_renderer->pickingPass(m_openGLScene, mapFromGlobal(QCursor::pos()) * devicePixelRatioF());
+    //            OpenGLMesh* pickedOpenGLMesh = m_openGLScene->pick(pickingID);
+    //            if (pickedOpenGLMesh)
+    //                pickedOpenGLMesh->host()->setHighlighted(true);
+    //            else if (Mesh::getHighlighted())
+    //                Mesh::getHighlighted()->setHighlighted(false);
+    //        }
 
-//        m_renderer->render(m_openGLScene);
-//    }
+    //        m_renderer->render(m_openGLScene);
+    //    }
 #endif
 }
 #pragma region "高级" {
@@ -191,7 +224,22 @@ void OpenGLWindow::paintGL()
 //    if (m_openGLScene)
 //        connect(m_openGLScene, SIGNAL(destroyed(QObject*)), this, SLOT(sceneDestroyed(QObject*)));
 //}
-
+void OpenGLWindow::setRendererSimple(OpenGLRenderer * renderer) {
+    m_renderer = renderer;
+    if (isInitialized() && m_renderer) {
+        m_renderer->reloadShadersSimple();
+        if (m_renderer->hasErrorLog()) {
+            QString log = m_renderer->errorLog();
+            QMessageBox::critical(0, "Failed to load shaders", log);
+            if (log_level >= LOG_LEVEL_ERROR)
+                dout << log;
+        }
+        else
+        {
+            qDebug()<<"setRenderer  没错误";
+        }
+    }
+}
 void OpenGLWindow::setRenderer(OpenGLRenderer * renderer) {
     m_renderer = renderer;
     if (isInitialized() && m_renderer) {

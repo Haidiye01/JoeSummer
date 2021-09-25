@@ -19,6 +19,7 @@
 
 #include <QMouseEvent>
 #include <QWheelEvent>
+#include <QOpenGLShader>
 #include <QOpenGLShaderProgram>
 #include <QOpenGLFramebufferObject>
 #include <QFile>

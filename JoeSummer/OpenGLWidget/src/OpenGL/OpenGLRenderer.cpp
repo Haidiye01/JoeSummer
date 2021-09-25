@@ -38,14 +38,10 @@ bool OpenGLRenderer::reloadShaders() {
         delete m_phongShader;
         m_phongShader = 0;
     }
-    if (m_JoeShader) {
-        delete m_JoeShader;
-        m_JoeShader = 0;
-    }
     m_pickingShader = loadShaderFromFile(":/resources/shaders/picking.vert", ":/resources/shaders/picking.frag");
     m_basicShader = loadShaderFromFile(":/resources/shaders/basic.vert", ":/resources/shaders/basic.frag");
     m_phongShader = loadShaderFromFile(":/resources/shaders/phong.vert", ":/resources/shaders/phong.frag");
-    m_JoeShader= loadShaderFromFile(":/resources/shaders/Test.vert", ":/resources/shaders/Test.frag");
+
     if (m_phongShader) {
         m_phongShader->bind();
         m_phongShader->setUniformValue("diffuseMap", 0);
@@ -54,7 +50,7 @@ bool OpenGLRenderer::reloadShaders() {
     }
 
     //return m_pickingShader && m_basicShader && m_phongShader;
-    return m_pickingShader && m_basicShader && m_phongShader&&m_JoeShader;
+    return m_pickingShader && m_basicShader && m_phongShader;
 }
 
 void OpenGLRenderer::reloadFrameBuffers() {
@@ -64,6 +60,8 @@ void OpenGLRenderer::reloadFrameBuffers() {
     glGetIntegerv(GL_VIEWPORT, data);
     m_pickingPassFBO = new QOpenGLFramebufferObject(data[2], data[3], QOpenGLFramebufferObject::CombinedDepthStencil);
 }
+
+
 
 //uint32_t OpenGLRenderer::pickingPass(OpenGLScene * openGLScene, QPoint cursorPos) {
 //    if (m_pickingPassFBO == 0) reloadFrameBuffers();
@@ -191,6 +189,67 @@ QOpenGLShaderProgram * OpenGLRenderer::loadShaderFromFile(
         m_log += "Failed to compile geometry shader: " + shader->log();
         if (log_level >= LOG_LEVEL_ERROR)
             dout << "Failed to compile geometry shader:" + shader->log();
+        return 0;
+    }
+    if (!shader->link()) {
+        m_log += "Failed to link shaders: " + shader->log();
+        if (log_level >= LOG_LEVEL_ERROR)
+            dout << "Failed to link shaders:" + shader->log();
+        return 0;
+    }
+    OpenGLUniformBufferObject::bindUniformBlock(shader);
+    return shader;
+}
+
+//自己的代码，前面的别动了
+
+
+bool OpenGLRenderer::reloadShadersSimple() {
+    if (m_JoeShader) {
+        delete m_JoeShader;
+        m_JoeShader = 0;
+    }
+    m_JoeShader= loadShaderFromFileSimple(":/resources/shaders/Test.vert", ":/resources/shaders/Test.frag");
+    return m_JoeShader;
+}
+
+void OpenGLRenderer::reloadFrameBuffersSimple() {
+
+}
+
+QOpenGLShaderProgram *OpenGLRenderer::loadShaderFromFileSimple(QString vertexShaderFilePath, QString fragmentShaderFilePath)
+{
+
+    QFile vertexShaderFile(vertexShaderFilePath);
+    QFile fragmentShaderFile(fragmentShaderFilePath);
+    if (!vertexShaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        m_log += "Failed to open file " + vertexShaderFilePath;
+        if (log_level >= LOG_LEVEL_ERROR)
+            dout << "Failed to open file" + vertexShaderFilePath;
+        return 0;
+    }
+    if (!fragmentShaderFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        m_log += "Failed to open file " + fragmentShaderFilePath;
+        if (log_level >= LOG_LEVEL_ERROR)
+            dout << "Failed to open file" + fragmentShaderFilePath;
+        return 0;
+    }
+
+    QByteArray vertexShaderCode = vertexShaderFile.readAll();
+    QByteArray fragmentShaderCode = fragmentShaderFile.readAll();
+
+
+    QOpenGLShaderProgram* shader = new QOpenGLShaderProgram(this);
+    if (!shader->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexShaderCode)) {
+        m_log += "Failed to compile vertex shader: " + shader->log();
+        if (log_level >= LOG_LEVEL_ERROR)
+            dout << "Failed to compile vertex shader:" + shader->log();
+        return 0;
+    }
+    if (!shader->addShaderFromSourceCode(QOpenGLShader::Fragment, fragmentShaderCode)) {
+        m_log += "Failed to compile fragment shader: " + shader->log();
+        if (log_level >= LOG_LEVEL_ERROR)
+            dout << "Failed to compile fragment shader:" + shader->log();
         return 0;
     }
     if (!shader->link()) {
